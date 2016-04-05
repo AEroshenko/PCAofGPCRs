@@ -1,0 +1,457 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     17381,        448]
+NotebookOptionsPosition[     16830,        427]
+NotebookOutlinePosition[     17165,        442]
+CellTagsIndexPosition[     17122,        439]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ StyleBox[
+  RowBox[{
+  "Prepare", " ", "lists", " ", "of", " ", "ids", " ", "needed", " ", "for", 
+   " ", "vmd", " ", "script", " ", "to", " ", "split", " ", "pdb", " ", 
+   "files", " ", "to", " ", "separate", " ", "chains"}], "Section"]], "Input",\
+
+ CellChangeTimes->{
+  3.668862917423167*^9, {3.668863123752554*^9, 3.668863214675447*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+    "pathToProject", "=", 
+     "\"\</media/my_extra_space/projects/1510GPCR/\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pathToDump", "=", 
+     RowBox[{"pathToProject", "<>", "\"\<dumps/\>\""}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Get", "[", 
+     RowBox[{
+     "pathToDump", "<>", "\"\<fromCollectingIdsForDeterminingChains.m\>\""}], 
+     "]"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.667930826881542*^9, 3.6679308271478*^9}, {
+  3.6679321839331703`*^9, 3.667932186638432*^9}, {3.6688626737044363`*^9, 
+  3.668862758425376*^9}, {3.668862794834186*^9, 3.66886280930051*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  StyleBox[
+   RowBox[{"Functions", " ", "definitions", " ", 
+    RowBox[{"(", 
+     RowBox[{
+     "eliciting", " ", "information", " ", "from", " ", "pdb", " ", "files"}],
+      ")"}]}], "Subsection"]}]], "Input",
+ CellChangeTimes->{{3.6688632290049057`*^9, 3.668863269803832*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"dissectSeq", "[", "x_", "]"}], ":=", 
+    RowBox[{"StringJoin", "[", 
+     RowBox[{"StringReplace", "[", 
+      RowBox[{"x", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"\"\<1\>\"", "\[Rule]", "\"\<\>\""}], ",", 
+         RowBox[{"\"\<2\>\"", "\[Rule]", "\"\<\>\""}], ",", 
+         RowBox[{"\"\<3\>\"", "\[Rule]", "\"\<\>\""}], ",", 
+         RowBox[{"\"\<4\>\"", "\[Rule]", "\"\<\>\""}], ",", 
+         RowBox[{"\"\<5\>\"", "\[Rule]", "\"\<\>\""}], ",", 
+         RowBox[{"\"\<6\>\"", "\[Rule]", "\"\<\>\""}], ",", 
+         RowBox[{"\"\<7\>\"", "\[Rule]", "\"\<\>\""}], ",", 
+         RowBox[{"\"\<8\>\"", "\[Rule]", "\"\<\>\""}], ",", 
+         RowBox[{"\"\<9\>\"", "\[Rule]", "\"\<\>\""}], ",", 
+         RowBox[{"\"\<0\>\"", "\[Rule]", "\"\<\>\""}]}], "}"}]}], "]"}], 
+     "]"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"aminoacid3to1raw", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+     RowBox[{
+     "StringToStream", "@", 
+      "\"\<Ala A\n            Arg R\n            Asn N\n            Asp D\n   \
+         Cys C\n            Glu E\n            Gln Q\n            Gly G\n     \
+       His H\n            Ile I\n            Leu L\n            Lys K\n       \
+     Met M\n            Phe F\n            Pro P\n            Ser S\n         \
+   Thr T\n            Trp W\n            Tyr Y\n            Val V\>\""}], 
+     ",", "\"\<Table\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"aminoacid3to1rule", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Rule", "[", 
+      RowBox[{
+       RowBox[{"ToUpperCase", "@", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}]}], "]"}], "&"}], "/@", 
+    "aminoacid3to1raw"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"aminoacid3to1function", "[", 
+     RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+    RowBox[{"Switch", "[", 
+     RowBox[{
+     "x", ",", "\"\<ALA\>\"", ",", "\"\<A\>\"", ",", "\"\<ARG\>\"", ",", 
+      "\"\<R\>\"", ",", "\"\<ASN\>\"", ",", "\"\<N\>\"", ",", "\"\<ASP\>\"", 
+      ",", "\"\<D\>\"", ",", "\"\<CYS\>\"", ",", "\"\<C\>\"", ",", 
+      "\"\<GLU\>\"", ",", "\"\<E\>\"", ",", "\"\<GLN\>\"", ",", "\"\<Q\>\"", 
+      ",", "\"\<GLY\>\"", ",", "\"\<G\>\"", ",", "\"\<HIS\>\"", ",", 
+      "\"\<H\>\"", ",", "\"\<ILE\>\"", ",", "\"\<I\>\"", ",", "\"\<LEU\>\"", 
+      ",", "\"\<L\>\"", ",", "\"\<LYS\>\"", ",", "\"\<K\>\"", ",", 
+      "\"\<MET\>\"", ",", "\"\<M\>\"", ",", "\"\<PHE\>\"", ",", "\"\<F\>\"", 
+      ",", "\"\<PRO\>\"", ",", "\"\<P\>\"", ",", "\"\<SER\>\"", ",", 
+      "\"\<S\>\"", ",", "\"\<THR\>\"", ",", "\"\<T\>\"", ",", "\"\<TRP\>\"", 
+      ",", "\"\<W\>\"", ",", "\"\<TYR\>\"", ",", "\"\<Y\>\"", ",", 
+      "\"\<VAL\>\"", ",", "\"\<V\>\"", ",", "_", ",", "\"\<X\>\""}], "]"}]}], 
+   ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"readPdbFile", "[", "idName_", "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "file", ",", "string", ",", "chains", ",", "numOfChains", ",", 
+        "resname", ",", "resnum", ",", "pdbSeq", ",", "i", ",", "data"}], 
+       "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"file", "=", 
+        RowBox[{"OpenRead", "[", 
+         RowBox[{"pathToPdb", "<>", "idName", "<>", "\"\<.pdb\>\""}], "]"}]}],
+        ";", "\[IndentingNewLine]", 
+       RowBox[{"string", "=", 
+        RowBox[{"Read", "[", 
+         RowBox[{"file", ",", "\"\<String\>\""}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"numOfChains", "=", "0"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"chains", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"data", "=", 
+        RowBox[{"Reap", "[", 
+         RowBox[{"While", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"StringTake", "[", 
+             RowBox[{"string", ",", "3"}], "]"}], "\[NotEqual]", 
+            "\"\<END\>\""}], ",", 
+           RowBox[{
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"StringTake", "[", 
+                RowBox[{"string", ",", "3"}], "]"}], "\[Equal]", 
+               "\"\<ATO\>\""}], ",", 
+              RowBox[{
+               RowBox[{"resname", "=", 
+                RowBox[{"aminoacid3to1function", "[", 
+                 RowBox[{
+                  RowBox[{"StringTake", "[", 
+                   RowBox[{"string", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"18", ",", "20"}], "}"}]}], "]"}], ",", 
+                  "idName"}], "]"}]}], ";", "\[IndentingNewLine]", 
+               RowBox[{"resnum", "=", 
+                RowBox[{"ToExpression", "@", 
+                 RowBox[{"StringTake", "[", 
+                  RowBox[{"string", ",", 
+                   RowBox[{"{", 
+                    RowBox[{"23", ",", "26"}], "}"}]}], "]"}]}]}], ";", 
+               "\[IndentingNewLine]", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Intersection", "[", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"StringTake", "[", 
+                    RowBox[{"string", ",", 
+                    RowBox[{"{", "22", "}"}]}], "]"}], "}"}], ",", "chains"}],
+                    "]"}], "\[NotEqual]", 
+                  RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", ",", 
+                 RowBox[{
+                  RowBox[{"numOfChains", "++"}], ";", "\[IndentingNewLine]", 
+                  RowBox[{"chains", "=", 
+                   RowBox[{"Flatten", "@", 
+                    RowBox[{"List", "[", 
+                    RowBox[{"chains", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"StringTake", "[", 
+                    RowBox[{"string", ",", 
+                    RowBox[{"{", "22", "}"}]}], "]"}], "}"}]}], "]"}]}]}], 
+                  ";"}]}], "]"}], ";", "\[IndentingNewLine]", 
+               RowBox[{"Sow", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"resnum", ",", "resname"}], "}"}], ",", 
+                 RowBox[{"StringTake", "[", 
+                  RowBox[{"string", ",", 
+                   RowBox[{"{", "22", "}"}]}], "]"}]}], "]"}], ";"}], ","}], 
+             "]"}], ";", "\[IndentingNewLine]", 
+            RowBox[{"string", "=", 
+             RowBox[{"Read", "[", 
+              RowBox[{"file", ",", "\"\<String\>\""}], "]"}]}], ";"}]}], 
+          "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"pdbSeq", "=", "chains"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"pdbSeq", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], "=", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "&"}], "/@", 
+            RowBox[{"Gather", "[", 
+             RowBox[{"data", "[", 
+              RowBox[{"[", 
+               RowBox[{"2", ",", "i"}], "]"}], "]"}], "]"}]}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Length", "[", 
+              RowBox[{"pdbSeq", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], "]"}], "<", 
+             "minProteinLength"}], ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"AppendTo", "[", 
+              RowBox[{"thrown", ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"idName", "<>", "\"\<_\>\"", "<>", 
+                  RowBox[{"chains", "[", 
+                   RowBox[{"[", "i", "]"}], "]"}]}], ",", 
+                 RowBox[{"\"\<length=\>\"", "<>", 
+                  RowBox[{"ToString", "[", 
+                   RowBox[{"Length", "[", 
+                    RowBox[{"pdbSeq", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], "]"}], "]"}]}]}], "}"}]}],
+               "]"}], ";"}], "\[IndentingNewLine]", ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"AppendTo", "[", 
+              RowBox[{"pdbsToChain", ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Flatten", "@", 
+                  RowBox[{"{", 
+                   RowBox[{"idName", ",", 
+                    RowBox[{"chains", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], ",", 
+                    RowBox[{"getInfoByName", "[", "idName", "]"}]}], "}"}]}], 
+                 ",", 
+                 RowBox[{"pdbSeq", "[", 
+                  RowBox[{"[", "i", "]"}], "]"}]}], "}"}]}], "]"}], ";"}]}], 
+           "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", "numOfChains"}], "}"}]}], "]"}], 
+       ";"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"getInfoByName", "[", "idName_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "pos", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"pos", "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"Position", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"listOfPdbs", "\[Transpose]"}], "[", 
+             RowBox[{"[", "1", "]"}], "]"}], ",", 
+            RowBox[{"ToUpperCase", "[", "idName", "]"}]}], "]"}], ")"}], "[", 
+         
+         RowBox[{"[", "1", "]"}], "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", 
+       RowBox[{"Flatten", "@", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"listOfPdbs", "[", 
+           RowBox[{"[", "pos", "]"}], "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"2", ";;", 
+            RowBox[{"-", "1"}]}], "]"}], "]"}], ")"}]}], "]"}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.667930829158331*^9, 3.667930849461646*^9}, {
+  3.667930957871917*^9, 3.667930966934849*^9}, {3.667931012644981*^9, 
+  3.66793115071303*^9}, {3.667931374032147*^9, 3.6679313841327333`*^9}, {
+  3.667931434058071*^9, 3.667931528210788*^9}, {3.667931601365666*^9, 
+  3.6679317500867453`*^9}, {3.667931846554482*^9, 3.667931877265663*^9}, {
+  3.6679320100575247`*^9, 3.667932041966364*^9}, {3.66793207315511*^9, 
+  3.6679320816535597`*^9}, {3.667967905068617*^9, 3.667967970071542*^9}, {
+  3.6679680265804787`*^9, 3.6679680594804087`*^9}, {3.668862828188218*^9, 
+  3.668862832894424*^9}, {3.668863000186921*^9, 3.668863002543721*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  StyleBox[
+   RowBox[{"Applying", " ", "functions", " ", 
+    RowBox[{"(", 
+     RowBox[{
+     "get", " ", "chain", " ", "names", " ", "and", " ", "append", " ", 
+      "chains", " ", "with", " ", "length", " ", "less", " ", 
+      RowBox[{"than", " ", "'"}], 
+      RowBox[{"minProteinLength", "'"}], " ", 
+      RowBox[{"to", " ", "'"}], 
+      RowBox[{"thrown", "'"}]}], ")"}]}], "Subsection"]}]], "Input",
+ CellChangeTimes->{{3.6688634101216507`*^9, 3.6688635773907003`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"pathToPdb", "=", 
+     RowBox[{"pathToProject", "<>", "\"\<pdbs/original/\>\""}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pathToDatFiles", "=", 
+     RowBox[{"pathToProject", "<>", "\"\<datFiles/\>\""}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"minProteinLength", "=", "200"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pdbsToChain", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"readPdbFile", "[", 
+       RowBox[{"ToLowerCase", "[", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], "&"}], "/@", 
+     "listOfPdbs"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.6679311045860767`*^9, 3.667931106343089*^9}, {
+   3.6679315360563173`*^9, 3.667931544250242*^9}, {3.668863023281954*^9, 
+   3.668863044940984*^9}, 3.6688633982188873`*^9}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  StyleBox[
+   RowBox[{"Exporting", " ", "info", " ", "for", " ", "VMD", " ", "script"}], 
+   "Subsection"]}]], "Input",
+ CellChangeTimes->{{3.668863712386259*^9, 3.668863733260133*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{"pathToDatFiles", "<>", "\"\<idsNamesToChain.dat\>\""}], ",", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#", "<>", "\"\<.pdb\>\""}], "&"}], "/@", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"pdbsToChain", "\[Transpose]"}], "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "\[Transpose]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ")"}]}], ")"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{"pathToDatFiles", "<>", "\"\<chainNamesToChain.dat\>\""}], ",", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"pdbsToChain", "\[Transpose]"}], "[", 
+       RowBox[{"[", "1", "]"}], "]"}], "\[Transpose]"}], "[", 
+     RowBox[{"[", "2", "]"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Export", "[", 
+    RowBox[{
+     RowBox[{"pathToDatFiles", "<>", "\"\<outNamesAfterChaining.dat\>\""}], 
+     ",", 
+     RowBox[{"(", 
+      RowBox[{"Map", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"ToUpperCase", "[", 
+           RowBox[{
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+          RowBox[{
+           RowBox[{"#", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "<>", "\"\<.pdb\>\""}], "&"}], ",",
+         "pdbsToChain"}], "]"}], ")"}]}], "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.6679329918412724`*^9, 3.667932993363326*^9}, {
+  3.667968180613844*^9, 3.667968204612026*^9}, {3.6688636071945543`*^9, 
+  3.6688636148851624`*^9}, {3.668863652005047*^9, 3.668863683598424*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Save", "[", 
+    RowBox[{
+     RowBox[{
+     "pathToDump", "<>", 
+      "\"\<fromDeterminingChainsForPrimaryLabeling.m\>\""}], ",", 
+     RowBox[{"{", 
+      RowBox[{"pdbsToChain", ",", " ", "thrown"}], "}"}]}], "]"}], 
+   ";"}]}]], "Input",
+ CellChangeTimes->{{3.667932159832799*^9, 3.667932169892536*^9}, {
+  3.6679323216292048`*^9, 3.667932328825802*^9}, {3.6679682533806047`*^9, 
+  3.667968254550082*^9}, {3.6688628687118807`*^9, 3.668862888405045*^9}}]
+},
+WindowSize->{808, 911},
+WindowMargins->{{Automatic, 761}, {Automatic, 27}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 358, 8, 92, "Input"],
+Cell[919, 30, 693, 18, 99, "Input"],
+Cell[1615, 50, 329, 8, 59, "Input"],
+Cell[1947, 60, 10720, 248, 1419, "Input"],
+Cell[12670, 310, 527, 12, 113, "Input"],
+Cell[13200, 324, 985, 26, 165, "Input"],
+Cell[14188, 352, 233, 5, 59, "Input"],
+Cell[14424, 359, 1872, 51, 187, "Input"],
+Cell[16299, 412, 527, 13, 110, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)

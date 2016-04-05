@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     24346,        687]
-NotebookOptionsPosition[     23270,        649]
-NotebookOutlinePosition[     23604,        664]
-CellTagsIndexPosition[     23561,        661]
+NotebookDataLength[     24361,        687]
+NotebookOptionsPosition[     23286,        649]
+NotebookOutlinePosition[     23620,        664]
+CellTagsIndexPosition[     23577,        661]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -639,13 +639,13 @@ Cell[BoxData[
       "pathToDump", "<>", "\"\<fromCollectingIdsForDeterminingChains.m\>\""}],
        ",", 
       RowBox[{"{", 
-       RowBox[{"pathToProject", ",", " ", "listOfPdbs", ",", " ", "thrown"}], 
-       "}"}]}], "]"}], ";"}]}]}]], "Input",
+       RowBox[{"listOfPdbs", ",", " ", "thrown"}], "}"}]}], "]"}], 
+    ";"}]}]}]], "Input",
  CellChangeTimes->{{3.667929766860112*^9, 3.667929847426968*^9}, {
   3.6679300586684504`*^9, 3.667930082661723*^9}, {3.6679322996695423`*^9, 
   3.667932305604203*^9}, {3.6679672058232527`*^9, 3.6679672067468157`*^9}, {
   3.668857037840949*^9, 3.668857042936171*^9}, {3.668857083253043*^9, 
-  3.668857119821518*^9}}]
+  3.668857119821518*^9}, {3.668863784946205*^9, 3.668863788583641*^9}}]
 },
 WindowSize->{1867, 1056},
 WindowMargins->{{Automatic, 0}, {Automatic, 0}},
@@ -688,7 +688,7 @@ Cell[21884, 611, 266, 5, 23, "Print"],
 Cell[22153, 618, 274, 5, 23, "Print"]
 }, Open  ]]
 }, Open  ]],
-Cell[22454, 627, 812, 20, 134, "Input"]
+Cell[22454, 627, 828, 20, 77, "Input"]
 }
 ]
 *)
