@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#launch as ./applyStride
+
+pathToProject="/media/my_extra_space/projects/1510GPCR/"
+pathToPdbs="pdbs/chained/"
+pathToPdbs=$pathToProject$pathToPdbs
+datFile1="datFiles/assignedPdbsToStride.dat"
+datFile1=$pathToProject$datFile1
+datFile2="datFiles/manualCheck.dat"
+datFile2=$pathToProject$datFile2
+pathToStrideOutput="datFiles/strideOutputs/"
+pathToStrideOutput=$pathToProject$pathToStrideOutput
+pdbEnding=".pdb"
+strideEnding=".strided"
+
+while read LINE; do
+    stride $pathToPdbs$LINE$pdbEnding -f$pathToStrideOutput$LINE$strideEnding
+done < $datFile1
+
+stride $pathToPdbs$LINE$pdbEnding -f$pathToStrideOutput$LINE$strideEnding
+# otherwse it does not produce last file 
+
+while read LINE; do
+    stride $pathToPdbs$LINE$pdbEnding -f$pathToStrideOutput$LINE$strideEnding
+done < $datFile2
+
+stride $pathToPdbs$LINE -f$pathToStrideOutput$LINE
+# otherwse it does not produce last file

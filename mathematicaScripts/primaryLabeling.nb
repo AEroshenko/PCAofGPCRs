@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     27387,        715]
-NotebookOptionsPosition[     26639,        688]
-NotebookOutlinePosition[     26973,        703]
-CellTagsIndexPosition[     26930,        700]
+NotebookDataLength[     28225,        739]
+NotebookOptionsPosition[     27365,        708]
+NotebookOutlinePosition[     27699,        723]
+CellTagsIndexPosition[     27656,        720]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -511,7 +511,8 @@ Cell[BoxData[
  CellChangeTimes->{
   3.667969434494652*^9, 3.6679695360123663`*^9, 3.6679717738308287`*^9, 
    3.668004879633419*^9, 3.668005000616948*^9, 3.668005114328239*^9, 
-   3.668154458136388*^9, {3.6688668675378237`*^9, 3.668866890502796*^9}}]
+   3.668154458136388*^9, {3.6688668675378237`*^9, 3.668866890502796*^9}, 
+   3.668967646029917*^9}]
 }, Open  ]],
 
 Cell[BoxData[
@@ -626,46 +627,43 @@ Cell[BoxData[
         RowBox[{"Length", "@", "unassigned"}], "]"}]}]}], "]"}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
-    RowBox[{"pdbsToStride", "=", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"ToUpperCase", "[", 
-          RowBox[{"#", "[", 
-           RowBox[{"[", "1", "]"}], "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
-         RowBox[{"#", "[", 
-          RowBox[{"[", "2", "]"}], "]"}]}], ")"}], "&"}], "/@", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"pdbsToChain", "\[Transpose]"}], "[", 
-        RowBox[{"[", "1", "]"}], "]"}], ")"}]}]}], ";"}], 
-   "\[IndentingNewLine]", "\n", 
-   RowBox[{
     RowBox[{"Export", "[", 
      RowBox[{
-      RowBox[{"pathToDatFiles", "<>", "\"\<pdbsToStride.dat\>\""}], ",", 
+      RowBox[{"pathToDatFiles", "<>", "\"\<assignedPdbsToStride.dat\>\""}], 
+      ",", 
       RowBox[{
        RowBox[{
         RowBox[{"(", 
-         RowBox[{"#", "<>", "\"\<.pdb\>\""}], ")"}], "&"}], "/@", 
-       "pdbsToStride"}]}], "]"}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"Export", "[", 
-     RowBox[{
-      RowBox[{"pathToDatFiles", "<>", "\"\<strideFiles.dat\>\""}], ",", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"(", 
-         RowBox[{"#", "<>", "\"\<strided.dat\>\""}], ")"}], "&"}], "/@", 
-       "pdbsToStride"}]}], "]"}], ";"}], "\[IndentingNewLine]"}]}]], "Input",
+         RowBox[{
+          RowBox[{"ToUpperCase", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"assigned", "[", 
+               RowBox[{"[", "#", "]"}], "]"}], "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"assigned", "[", 
+              RowBox[{"[", "#", "]"}], "]"}], "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], ")"}], "&"}], "/@", 
+       RowBox[{"Range", "[", 
+        RowBox[{"Length", "@", "assigned"}], "]"}]}]}], "]"}], 
+    ";"}]}]}]], "Input",
  CellChangeTimes->{{3.667969899458949*^9, 3.667969907818532*^9}, {
   3.667970004009843*^9, 3.667970108727262*^9}, {3.667970139295322*^9, 
   3.667970168996091*^9}, {3.667970855161674*^9, 3.667970856064465*^9}, {
   3.6679709400130577`*^9, 3.66797104289144*^9}, {3.667971087608284*^9, 
   3.66797110338587*^9}, {3.667971799236514*^9, 3.667971800259344*^9}, {
   3.668867163802395*^9, 3.6688671831856947`*^9}, {3.668867355724475*^9, 
-  3.668867361337508*^9}}],
+  3.668867361337508*^9}, {3.668967694917626*^9, 3.668967713170024*^9}, {
+  3.668968668970422*^9, 3.668968692969762*^9}, {3.66896874188348*^9, 
+  3.668968788925282*^9}}],
 
 Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", 
@@ -684,7 +682,29 @@ Cell[BoxData[
   3.6679702721396837`*^9, 3.66797029311911*^9}, {3.6679708652484007`*^9, 
   3.667970882310678*^9}, {3.667971265433361*^9, 3.6679712710598717`*^9}, {
   3.668866231475512*^9, 3.668866249540085*^9}, {3.668866660054344*^9, 
-  3.668866665158258*^9}}]
+  3.668866665158258*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"assigned", "[", 
+     RowBox[{"[", "1", "]"}], "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}], "[", 
+   RowBox[{"[", "1", "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6689687166421347`*^9, 3.668968718725193*^9}, {
+  3.6689687742529507`*^9, 3.668968778323737*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"1f88\"\>", ",", "\<\"A\"\>", 
+   ",", "\<\"CRYSTAL STRUCTURE OF BOVINE RHODOPSIN\"\>", 
+   ",", "\<\"X-RAY DIFFRACTION\"\>", ",", "\<\"2.80\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.66896871899848*^9, {3.668968775068666*^9, 3.6689687786797647`*^9}}]
+}, Open  ]]
 },
 WindowSize->{1867, 1056},
 WindowMargins->{{Automatic, 0}, {Automatic, 0}},
@@ -710,13 +730,17 @@ Cell[8268, 227, 438, 10, 59, "Input"],
 Cell[8709, 239, 6806, 174, 539, "Input"],
 Cell[CellGroupData[{
 Cell[15540, 417, 853, 21, 77, "Input"],
-Cell[16396, 440, 3778, 73, 325, "Output"]
+Cell[16396, 440, 3804, 74, 325, "Output"]
 }, Open  ]],
-Cell[20189, 516, 503, 11, 59, "Input"],
-Cell[20695, 529, 1771, 46, 143, "Input"],
-Cell[22469, 577, 541, 13, 59, "Input"],
-Cell[23013, 592, 2882, 75, 209, "Input"],
-Cell[25898, 669, 737, 17, 88, "Input"]
+Cell[20215, 517, 503, 11, 59, "Input"],
+Cell[20721, 530, 1771, 46, 143, "Input"],
+Cell[22495, 578, 541, 13, 59, "Input"],
+Cell[23039, 593, 2891, 72, 121, "Input"],
+Cell[25933, 667, 737, 17, 55, "Input"],
+Cell[CellGroupData[{
+Cell[26695, 688, 350, 9, 55, "Input"],
+Cell[27048, 699, 301, 6, 32, "Output"]
+}, Open  ]]
 }
 ]
 *)
