@@ -1,0 +1,363 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     13333,        354]
+NotebookOptionsPosition[     12873,        334]
+NotebookOutlinePosition[     13207,        349]
+CellTagsIndexPosition[     13164,        346]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  StyleBox[
+   RowBox[{
+    RowBox[{
+    "Iteratively", " ", "submit", " ", "all", " ", "7", "tm", " ", "pdb", " ",
+      "files", " ", "to", " ", "GPCRdb", " ", "for", " ", "labeling"}], ",", 
+    " ", 
+    RowBox[{"load", " ", "them", " ", "to", " ", 
+     RowBox[{"Downloads", "/", " ", "and"}], " ", "automatically", " ", 
+     "move", " ", "to", " ", "different", " ", "directory"}]}], 
+   "Section"]}]], "Input",
+ CellChangeTimes->{{3.668969334228777*^9, 3.668969444922131*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+  "pathToProject", "=", "\"\</media/my_extra_space/projects/1510GPCR/\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pathToDownloads", "=", "\"\</home/aer/Downloads/\>\""}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.6689692582579393`*^9, 3.668969324878715*^9}, {
+  3.6689695669399*^9, 3.668969625876334*^9}, {3.668969657177782*^9, 
+  3.668969671738872*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"pathToPdbs", "=", 
+   RowBox[{"pathToProject", "<>", "\"\<pdbs/chained/\>\""}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pathToMoveGPCRdbLabeledFilesTo", "=", 
+   RowBox[{"pathToProject", "<>", "\"\<pdbs/fromGPCRdb/\>\""}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.6689692582579393`*^9, 3.668969324878715*^9}, {
+   3.6689695669399*^9, 3.668969625876334*^9}, {3.668969657177782*^9, 
+   3.668969683137464*^9}, 3.668969867533556*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"listOfUnassigned", "=", 
+   RowBox[{"Flatten", "@", 
+    RowBox[{"Import", "[", 
+     RowBox[{
+     "pathToProject", "<>", "\"\<datFiles/\>\"", "<>", 
+      "\"\<manualCheck.dat\>\""}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Needs", "[", "\"\<WebUnit`\>\"", "]"}], "\n", 
+ RowBox[{
+  RowBox[{"InstallWebUnit", "[", "]"}], " ", "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", 
+   RowBox[{"actually", " ", "it", " ", "does", " ", "not", " ", 
+    RowBox[{"work", ".", "\[IndentingNewLine]", " ", "Just"}], " ", "launch", 
+    " ", "it", " ", "manully", " ", "in", " ", "the", " ", "console", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"~", "$"}], " ", "chromedriver"}], ")"}]}], 
+   "\[IndentingNewLine]", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"StartWebSession", "[", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Do", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"fileName", "=", 
+       RowBox[{"listOfUnassigned", "[", 
+        RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+       "OpenWebPage", "[", 
+        "\"\<http://gpcrdb.org/structure/generic_numbering_index\>\"", "]"}], 
+       " ", "\[IndentingNewLine]", 
+       RowBox[{"TypeElement", "[", 
+        RowBox[{
+         RowBox[{"Id", "[", "\"\<id_pdb_file\>\"", "]"}], ",", 
+         RowBox[{"pathToPdbs", "<>", "fileName", "<>", "\"\<.pdb\>\""}]}], 
+        "]"}], "\[IndentingNewLine]", 
+       RowBox[{"ClickElement", "[", 
+        RowBox[{"Id", "[", "\"\<selection-buttons\>\"", "]"}], "]"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{"Pause", "[", "3", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+       "OpenWebPage", "[", 
+        "\"\<http://gpcrdb.org/structure/generic_numbering_results/full\>\"", 
+        "]"}], "\[IndentingNewLine]", 
+       RowBox[{"Pause", "[", "3", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"CopyFile", "[", 
+       RowBox[{
+        RowBox[{
+        "pathToDownloads", "<>", "fileName", "<>", "\"\<_GPCRDB.pdb\>\""}], 
+        ",", 
+        RowBox[{
+        "pathToMoveGPCRdbLabeledFilesTo", "<>", "fileName", "<>", 
+         "\"\<_GPCRDB.pdb\>\""}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"DeleteFile", "[", 
+       RowBox[{
+       "pathToDownloads", "<>", "fileName", "<>", "\"\<_GPCRDB.pdb\>\""}], 
+       "]"}], ";"}], "\[IndentingNewLine]", ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "@", "listOfUnassigned"}]}], "}"}]}], 
+    "\[IndentingNewLine]", "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.668935988965259*^9, 3.66893600459442*^9}, {
+  3.668936081885141*^9, 3.668936082224001*^9}, {3.668936162489419*^9, 
+  3.668936226576033*^9}, {3.668936259905664*^9, 3.668936262428752*^9}, {
+  3.6689691785397673`*^9, 3.668969271390389*^9}, {3.668969535075549*^9, 
+  3.6689695574668407`*^9}, {3.6689706982042513`*^9, 3.668970884534277*^9}, {
+  3.668970926571437*^9, 3.668970939430575*^9}, {3.66897107153157*^9, 
+  3.668971084614254*^9}, {3.668971165295079*^9, 3.668971176174198*^9}, {
+  3.668971239261366*^9, 3.668971276780528*^9}, {3.668971421898052*^9, 
+  3.668971433270903*^9}, {3.668971494988779*^9, 3.6689715676412563`*^9}, {
+  3.668973529313945*^9, 3.66897355609383*^9}, {3.668973594020809*^9, 
+  3.668973594334682*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"?", "WebUnit`*"}]}]], "Input",
+ CellChangeTimes->{{3.6689702456004677`*^9, 3.66897025878378*^9}}],
+
+Cell[BoxData[
+ DynamicModuleBox[{Typeset`open$$ = True}, 
+  PaneSelectorBox[{False->
+   RowBox[{
+    OpenerBox[Dynamic[Typeset`open$$],
+     ImageSize->Small], 
+    StyleBox["WebUnit`", "InfoHeading"]}], True->GridBox[{
+     {
+      RowBox[{
+       OpenerBox[Dynamic[Typeset`open$$],
+        ImageSize->Small], 
+       StyleBox["WebUnit`", "InfoHeading"]}]},
+     {GridBox[{
+        {
+         ButtonBox["BrowserWindows",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"BrowserWindows", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["CssSelector",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"CssSelector", "WebUnit`"}},
+          
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["HoverElement",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"HoverElement", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["LinkText",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"LinkText", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["PageBack",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"PageBack", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["RefreshWebPage",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"RefreshWebPage", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["SubmitElement",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"SubmitElement", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["XPath",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"XPath", "WebUnit`"}},
+          ButtonNote->"WebUnit`"]},
+        {
+         ButtonBox["CaptureWebPage",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"CaptureWebPage", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["ElementClassName",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"ElementClassName", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["Id",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"Id", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["LocateElement",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"LocateElement", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["PageForward",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"PageForward", "WebUnit`"}},
+          
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["SetBrowserWindow",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"SetBrowserWindow", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["TagName",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"TagName", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["$CurrentWebSession",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"$CurrentWebSession", "WebUnit`"}},
+          ButtonNote->"WebUnit`"]},
+        {
+         ButtonBox["ClearElement",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"ClearElement", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["FocusFrame",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"FocusFrame", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["InstallWebUnit",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"InstallWebUnit", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["Name",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"Name", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["PageLinks",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"PageLinks", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["StartWebSession",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"StartWebSession", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["TypeElement",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"TypeElement", "WebUnit`"}},
+          
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["$SupportedWebDrivers",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"$SupportedWebDrivers", "WebUnit`"}},
+          ButtonNote->"WebUnit`"]},
+        {
+         ButtonBox["ClickElement",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"ClickElement", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["HideElement",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"HideElement", "WebUnit`"}},
+          
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["JavascriptExecute",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"JavascriptExecute", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["OpenWebPage",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"OpenWebPage", "WebUnit`"}},
+          
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["PartialLinkText",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"PartialLinkText", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["StopWebSession",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"StopWebSession", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["WebSessionStatus",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3668981059-9678539", {"WebSessionStatus", "WebUnit`"}},
+          ButtonNote->"WebUnit`"], 
+         ButtonBox["$WebSessions",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3668981059-9678539", {"$WebSessions", "WebUnit`"}},
+          ButtonNote->"WebUnit`"]}
+       },
+       DefaultBaseStyle->"InfoGrid",
+       GridBoxItemSize->{"Columns" -> {{
+            Scaled[0.11875]}}}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}]}, 
+   Dynamic[Typeset`open$$],
+   ImageSize->Automatic]]], "Print", "InfoCell",
+ CellChangeTimes->{3.668970259315873*^9}]
+}, Open  ]]
+},
+WindowSize->{1867, 1056},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 531, 12, 101, "Input"],
+Cell[1092, 34, 410, 10, 55, "Input"],
+Cell[1505, 46, 486, 11, 55, "Input"],
+Cell[1994, 59, 3432, 75, 495, "Input"],
+Cell[CellGroupData[{
+Cell[5451, 138, 155, 3, 55, "Input"],
+Cell[5609, 143, 7248, 188, 126, "Print"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
