@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     28225,        739]
-NotebookOptionsPosition[     27365,        708]
-NotebookOutlinePosition[     27699,        723]
-CellTagsIndexPosition[     27656,        720]
+NotebookDataLength[     27484,        713]
+NotebookOptionsPosition[     26736,        686]
+NotebookOutlinePosition[     27070,        701]
+CellTagsIndexPosition[     27027,        698]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -132,7 +132,7 @@ Cell[BoxData[
           RowBox[{"\"\<8\>\"", "\[Rule]", "\"\<\>\""}], ",", 
           RowBox[{"\"\<9\>\"", "\[Rule]", "\"\<\>\""}], ",", 
           RowBox[{"\"\<0\>\"", "\[Rule]", "\"\<\>\""}]}], "}"}]}], "]"}], 
-      "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", "\n", 
    RowBox[{
     RowBox[{"families", "=", 
      RowBox[{"Drop", "[", 
@@ -217,7 +217,7 @@ Cell[BoxData[
        RowBox[{"i", ",", "1", ",", "numOfHelises"}], "}"}], ",", 
       RowBox[{"{", 
        RowBox[{"j", ",", "1", ",", "numOfFamilies"}], "}"}]}], "]"}], ";"}], 
-   "\n", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\n", 
    RowBox[{
     RowBox[{"numOfFiles", "=", 
      RowBox[{"Length", "@", "pdbsToChain"}]}], ";"}]}]}]], "Input",
@@ -676,35 +676,13 @@ Cell[BoxData[
      RowBox[{"{", 
       RowBox[{
       "assigned", ",", "unassigned", ",", " ", "helixGroupArray", ",", " ", 
-       "helixStringArray", ",", " ", "families", ",", "numOfHelises"}], 
-      "}"}]}], "]"}], ";"}]}]], "Input",
+       "helixStringArray", ",", " ", "families", ",", "numOfHelises", ",", 
+       "thrown"}], "}"}]}], "]"}], ";"}]}]], "Input",
  CellChangeTimes->{{3.667970233446587*^9, 3.667970240227344*^9}, {
   3.6679702721396837`*^9, 3.66797029311911*^9}, {3.6679708652484007`*^9, 
   3.667970882310678*^9}, {3.667971265433361*^9, 3.6679712710598717`*^9}, {
   3.668866231475512*^9, 3.668866249540085*^9}, {3.668866660054344*^9, 
-  3.668866665158258*^9}}],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"\[IndentingNewLine]", 
-  RowBox[{
-   RowBox[{
-    RowBox[{"assigned", "[", 
-     RowBox[{"[", "1", "]"}], "]"}], "[", 
-    RowBox[{"[", "1", "]"}], "]"}], "[", 
-   RowBox[{"[", "1", "]"}], "]"}]}]], "Input",
- CellChangeTimes->{{3.6689687166421347`*^9, 3.668968718725193*^9}, {
-  3.6689687742529507`*^9, 3.668968778323737*^9}}],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{"\<\"1f88\"\>", ",", "\<\"A\"\>", 
-   ",", "\<\"CRYSTAL STRUCTURE OF BOVINE RHODOPSIN\"\>", 
-   ",", "\<\"X-RAY DIFFRACTION\"\>", ",", "\<\"2.80\"\>"}], "}"}]], "Output",
- CellChangeTimes->{
-  3.66896871899848*^9, {3.668968775068666*^9, 3.6689687786797647`*^9}}]
-}, Open  ]]
+  3.668866665158258*^9}, {3.669015532052534*^9, 3.669015532981729*^9}}]
 },
 WindowSize->{1867, 1056},
 WindowMargins->{{Automatic, 0}, {Automatic, 0}},
@@ -736,11 +714,7 @@ Cell[20215, 517, 503, 11, 59, "Input"],
 Cell[20721, 530, 1771, 46, 143, "Input"],
 Cell[22495, 578, 541, 13, 59, "Input"],
 Cell[23039, 593, 2891, 72, 121, "Input"],
-Cell[25933, 667, 737, 17, 55, "Input"],
-Cell[CellGroupData[{
-Cell[26695, 688, 350, 9, 55, "Input"],
-Cell[27048, 699, 301, 6, 32, "Output"]
-}, Open  ]]
+Cell[25933, 667, 799, 17, 88, "Input"]
 }
 ]
 *)
