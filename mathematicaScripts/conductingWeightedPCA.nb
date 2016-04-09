@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     60560,       1564]
-NotebookOptionsPosition[     59793,       1537]
-NotebookOutlinePosition[     60127,       1552]
-CellTagsIndexPosition[     60084,       1549]
+NotebookDataLength[     71359,       1830]
+NotebookOptionsPosition[     70546,       1802]
+NotebookOutlinePosition[     70880,       1817]
+CellTagsIndexPosition[     70837,       1814]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -269,7 +269,7 @@ Cell[BoxData[
             RowBox[{"alignedSet", "\[Transpose]"}], "+", "mean1Set"}], ")"}], 
           "\[Transpose]"}]}], ";", "\[IndentingNewLine]", 
         RowBox[{"Return", "[", "alignedSet", "]"}], ";"}]}], "]"}]}], ";"}], 
-   "\n", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"alignAllToMolecule", "[", "averageTriplet_", "]"}], ":=", 
@@ -333,22 +333,18 @@ Cell[BoxData[
        RowBox[{
         RowBox[{"means", "[", 
          RowBox[{"[", "i", "]"}], "]"}], "=", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"Mean", "[", "#", "]"}], "&"}], "/@", 
-         RowBox[{"(", 
-          RowBox[{"pdbCoordinates", "\[Transpose]"}], ")"}]}]}], ";"}], 
+        RowBox[{"weightsNormalized", ".", "pdbCoordinates"}]}], ";"}], 
       "\[IndentingNewLine]", ",", 
       RowBox[{"{", 
        RowBox[{"i", ",", "2", ",", "5"}], "}"}]}], "\[IndentingNewLine]", 
-     "]"}], ";"}], "\n", "\[IndentingNewLine]", 
+     "]"}], ";"}], "\[IndentingNewLine]", "\n", 
    RowBox[{
     RowBox[{"mean", "=", 
      RowBox[{"means", "[", 
       RowBox[{"[", "5", "]"}], "]"}]}], ";"}]}]}]], "Input",
  CellChangeTimes->{{3.669131529942738*^9, 3.6691315854171133`*^9}, {
   3.669132324918474*^9, 3.669132342386077*^9}, {3.669133207256032*^9, 
-  3.669133207474063*^9}}],
+  3.669133207474063*^9}, {3.669195258437365*^9, 3.669195261633862*^9}}],
 
 Cell[CellGroupData[{
 
@@ -366,28 +362,29 @@ Cell[BoxData[
          RowBox[{"[", 
           RowBox[{"#", "+", "1"}], "]"}], "]"}]}], "]"}], "&"}], "/@", 
      RowBox[{"Range", "[", "4", "]"}]}], ",", " ", 
-    RowBox[{"PlotLabel", "\[Rule]", "\"\<average structure conversion\>\""}], 
-    ",", " ", 
+    RowBox[{
+    "PlotLabel", "\[Rule]", "\"\<weighted average structure conversion\>\""}],
+     ",", " ", 
     RowBox[{"AxesLabel", "\[Rule]", 
      RowBox[{"{", 
       RowBox[{"\"\<iteration No\>\"", ",", "\"\<rmsd to next iteration\>\""}],
        "}"}]}]}], "]"}]}]], "Input",
  CellChangeTimes->{{3.669132037861249*^9, 3.66913209088588*^9}, {
   3.6691321474701843`*^9, 3.669132147754217*^9}, {3.6691322328446217`*^9, 
-  3.669132299620207*^9}}],
+  3.669132299620207*^9}, {3.6691952749347343`*^9, 3.669195278976344*^9}}],
 
 Cell[BoxData[
  GraphicsBox[{{}, {{}, 
     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.019444444444444445`],
       AbsoluteThickness[1.6], 
-     PointBox[{{1., -0.22677758526801103`}, {2., -7.124645266871102}, {
-      3., -13.043422984698731`}, {4., -18.842105159662662`}}]}, {}}, {}},
+     PointBox[{{1., -0.016597127442209758`}, {2., -6.823108635894839}, {
+      3., -12.589702007320486`}, {4., -18.24922042304981}}]}, {}}, {}},
   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
   Axes->{True, True},
   AxesLabel->{
     FormBox["\"iteration No\"", TraditionalForm], 
     FormBox["\"rmsd to next iteration\"", TraditionalForm]},
-  AxesOrigin->{0, -20.209677308347857`},
+  AxesOrigin->{0, -19.573760615045362`},
   CoordinatesToolOptions:>{"DisplayFunction" -> ({
       Part[#, 1], 
       Exp[
@@ -405,8 +402,9 @@ Cell[BoxData[
   GridLinesStyle->Directive[
     GrayLevel[0.5, 0.4]],
   Method->{},
-  PlotLabel->FormBox["\"average structure conversion\"", TraditionalForm],
-  PlotRange->{{0., 4}, {-19.88888877964392, 0}},
+  PlotLabel->FormBox[
+   "\"weighted average structure conversion\"", TraditionalForm],
+  PlotRange->{{0., 4}, {-19.263066002108133`, 0}},
   PlotRangeClipping->True,
   PlotRangePadding->{{
      Scaled[0.02], 
@@ -414,18 +412,26 @@ Cell[BoxData[
      Scaled[0.02], 
      Scaled[0.05]}},
   Ticks->FrontEndValueCache[{Automatic, 
-     Charting`ScaledTicks[{Log, Exp}]}, {Automatic, {{-13.815510557964274`, 
+     Charting`ScaledTicks[{Log, Exp}]}, {Automatic, {{-16.11809565095832, 
        FormBox[
         TemplateBox[{"10", 
-          RowBox[{"-", "6"}]}, "Superscript", SyntaxForm -> SuperscriptBox], 
+          RowBox[{"-", "7"}]}, "Superscript", SyntaxForm -> SuperscriptBox], 
+        TraditionalForm], {0.01, 0.}, {
+        AbsoluteThickness[0.1]}}, {-11.512925464970229`, 
+       FormBox[
+        TemplateBox[{"10", 
+          RowBox[{"-", "5"}]}, "Superscript", SyntaxForm -> SuperscriptBox], 
         TraditionalForm], {0.01, 0.}, {
         AbsoluteThickness[0.1]}}, {-6.907755278982137, 
        FormBox[
         TemplateBox[{"10", 
           RowBox[{"-", "3"}]}, "Superscript", SyntaxForm -> SuperscriptBox], 
         TraditionalForm], {0.01, 0.}, {
-        AbsoluteThickness[0.1]}}, {0., 
-       FormBox["1", TraditionalForm], {0.01, 0.}, {
+        AbsoluteThickness[0.1]}}, {-2.3025850929940455`, 
+       FormBox[
+        TemplateBox[{"10", 
+          RowBox[{"-", "1"}]}, "Superscript", SyntaxForm -> SuperscriptBox], 
+        TraditionalForm], {0.01, 0.}, {
         AbsoluteThickness[0.1]}}, {-20.72326583694641, 
        FormBox[
         InterpretationBox[
@@ -442,15 +448,7 @@ Cell[BoxData[
           GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
            Baseline], "CacheGraphics" -> False], 
          Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
-        AbsoluteThickness[0.1]}}, {-16.11809565095832, 
-       FormBox[
-        InterpretationBox[
-         StyleBox[
-          
-          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
-           Baseline], "CacheGraphics" -> False], 
-         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
-        AbsoluteThickness[0.1]}}, {-11.512925464970229`, 
+        AbsoluteThickness[0.1]}}, {-13.815510557964274`, 
        FormBox[
         InterpretationBox[
          StyleBox[
@@ -474,7 +472,15 @@ Cell[BoxData[
           GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
            Baseline], "CacheGraphics" -> False], 
          Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
-        AbsoluteThickness[0.1]}}, {-2.3025850929940455`, 
+        AbsoluteThickness[0.1]}}, {0., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {2.302585092994046, 
        FormBox[
         InterpretationBox[
          StyleBox[
@@ -485,13 +491,33 @@ Cell[BoxData[
         AbsoluteThickness[0.1]}}}}]]], "Output",
  CellChangeTimes->{3.669132092388606*^9, 3.669132148146401*^9, 
   3.669132300040627*^9, 3.66913301785678*^9, 3.669133225479343*^9, 
-  3.6691362051289797`*^9, 3.6691948750849323`*^9, 3.6691954018452044`*^9, 
-  3.6691994303027477`*^9, 3.669199586590323*^9, 3.669199954848196*^9}]
+  3.6691362051289797`*^9, 3.6691948750849323`*^9, 3.669195281082932*^9}]
 }, Open  ]],
 
 Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", 
   RowBox[{
+   RowBox[{
+    RowBox[{"matrixWeightsNormalized", "=", 
+     RowBox[{"ConstantArray", "[", 
+      RowBox[{"0", ",", 
+       RowBox[{"{", 
+        RowBox[{"numOfFiles", ",", "numOfFiles"}], "}"}]}], "]"}]}], ";"}], 
+   "\n", 
+   RowBox[{
+    RowBox[{"Do", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"matrixWeightsNormalized", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "[", 
+         RowBox[{"[", "i", "]"}], "]"}], "=", 
+        RowBox[{"weightsNormalized", "[", 
+         RowBox[{"[", "i", "]"}], "]"}]}], ";"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", "numOfFiles"}], "}"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"coordinates", "=", 
      RowBox[{
@@ -509,9 +535,8 @@ Cell[BoxData[
    RowBox[{
     RowBox[{"covarianceMatrix", "=", 
      RowBox[{
-      RowBox[{
-       RowBox[{"zeroMean", "\[Transpose]"}], ".", "zeroMean"}], "/", 
-      "numOfFiles"}]}], ";"}], "\n", 
+      RowBox[{"zeroMean", "\[Transpose]"}], ".", "matrixWeightsNormalized", 
+      ".", "zeroMean"}]}], ";"}], "\n", 
    RowBox[{
     RowBox[{"eigenValues", "=", 
      RowBox[{"Eigenvalues", "[", "covarianceMatrix", "]"}]}], ";"}], "\n", 
@@ -520,7 +545,8 @@ Cell[BoxData[
      RowBox[{"Eigenvectors", "[", "covarianceMatrix", "]"}]}], 
     ";"}]}]}]], "Input",
  CellChangeTimes->{{3.668075400613709*^9, 3.668075400928063*^9}, {
-  3.669132394631916*^9, 3.669132472559576*^9}}],
+  3.669132394631916*^9, 3.669132472559576*^9}, {3.669195307114243*^9, 
+  3.669195350974044*^9}}],
 
 Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", 
@@ -708,8 +734,8 @@ Cell[BoxData[
        RowBox[{
         RowBox[{"eigenVectors", "[", 
          RowBox[{"[", "4", "]"}], "]"}], "*=", 
-        RowBox[{"-", "1"}]}], ";"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
-   "\n", 
+        RowBox[{"-", "1"}]}], ";"}]}], "]"}], ";"}], "\n", 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"evalMax", "=", "0.45"}], ";"}], "\n", 
    RowBox[{
@@ -793,7 +819,7 @@ Cell[BoxData[
           RowBox[{"{", 
            RowBox[{
            "\"\<Principal Component No.\>\"", ",", 
-            "\"\<Class A unweighted\>\""}], "}"}]}], "}"}]}], ",", 
+            "\"\<Class A weighted\>\""}], "}"}]}], "}"}]}], ",", 
        RowBox[{"LabelStyle", "\[Rule]", 
         RowBox[{"{", 
          RowBox[{"16", ",", 
@@ -808,12 +834,13 @@ Cell[BoxData[
      RowBox[{
       RowBox[{
       "pathToProject", "<>", "\"\<figures/cumulativeEigenvalues/\>\"", "<>", 
-       "\"\<cumulativeEigenValueAClassesUnweighted.png\>\""}], ",", 
+       "\"\<cumulativeEigenValueAClassesWeighted.png\>\""}], ",", 
       "plotEigenValues"}], "]"}], ";"}]}]}]], "Input",
  CellChangeTimes->{{3.6680754117253532`*^9, 3.668075428577243*^9}, {
   3.668262967312852*^9, 3.66826297406983*^9}, {3.669133244526308*^9, 
   3.6691332632214947`*^9}, {3.6691362309844923`*^9, 3.66913623758407*^9}, {
-  3.669194861951057*^9, 3.669194863718665*^9}}],
+  3.669194861951057*^9, 3.669194863718665*^9}, {3.669195370870421*^9, 
+  3.669195375161872*^9}}],
 
 Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", 
@@ -1163,7 +1190,7 @@ Cell[BoxData[
               "pairs"}], ")"}]}], ",", 
            RowBox[{"PlotLabel", "\[Rule]", 
             RowBox[{"(", 
-             RowBox[{"\"\<Class A unweighted, PC\>\"", "<>", 
+             RowBox[{"\"\<Class A weighted, PC\>\"", "<>", 
               RowBox[{"ToString", "@", 
                RowBox[{"pairs", "[", 
                 RowBox[{"[", "1", "]"}], "]"}]}], "<>", "\"\< vs PC\>\"", "<>", 
@@ -1470,27 +1497,58 @@ Cell[BoxData[
    3.669135619954623*^9}, {3.669135754187191*^9, 3.669135758961306*^9}, {
    3.669136069073745*^9, 3.669136073044079*^9}, {3.669136583378202*^9, 
    3.669136585188962*^9}, 3.6691366166384172`*^9, {3.669136802417013*^9, 
-   3.669136807917768*^9}}],
+   3.669136807917768*^9}, 3.669198665694687*^9}],
 
-Cell[BoxData[
- RowBox[{"\[IndentingNewLine]", 
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"pc1pc2plot", "=", 
+   RowBox[{"plotPCiPCjwithHighlitedFams", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1", ",", "2"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<CHRM2\>\"", ",", "\"\<Chrm3\>\"", ",", "\"\<ADRB1\>\"", ",", 
+       "\"\<ADRB2\>\"", ",", "\"\<DRD3\>\"", ",", "\"\<HRH1\>\"", ",", 
+       "\"\<HTR1B\>\"", ",", "\"\<HTR2B\>\"", ",", "\"\<CCR5\>\"", ",", 
+       "\"\<CXCR4\>\"", ",", "\"\<Ntsr1\>\"", ",", "\"\<OPRD1\>\"", ",", 
+       "\"\<OPRK1\>\"", ",", "\"\<Oprm1\>\"", ",", "\"\<OPRL1\>\"", ",", 
+       "\"\<F2R\>\"", ",", "\"\<RHO\>\"", ",", "\"\<rho\>\"", ",", 
+       "\"\<ADORA2A\>\"", ",", "\"\<P2RY12\>\"", ",", "\"\<Unk\>\"", ",", 
+       "\"\<EDG1\>\"", ",", "\"\<FFAR1\>\""}], "}"}], ",", 
+     "\[IndentingNewLine]", "True"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
   RowBox[{
-   RowBox[{"pc1pc2plot", "=", 
-    RowBox[{"plotPCiPCjwithHighlitedFams", "[", 
+   RowBox[{"Export", "[", 
+    RowBox[{
      RowBox[{
-      RowBox[{"{", 
-       RowBox[{"1", ",", "2"}], "}"}], ",", "\[IndentingNewLine]", 
-      RowBox[{"{", 
-       RowBox[{
-       "\"\<CHRM2\>\"", ",", "\"\<Chrm3\>\"", ",", "\"\<ADRB1\>\"", ",", 
-        "\"\<ADRB2\>\"", ",", "\"\<DRD3\>\"", ",", "\"\<HRH1\>\"", ",", 
-        "\"\<HTR1B\>\"", ",", "\"\<HTR2B\>\"", ",", "\"\<CCR5\>\"", ",", 
-        "\"\<CXCR4\>\"", ",", "\"\<Ntsr1\>\"", ",", "\"\<OPRD1\>\"", ",", 
-        "\"\<OPRK1\>\"", ",", "\"\<Oprm1\>\"", ",", "\"\<OPRL1\>\"", ",", 
-        "\"\<F2R\>\"", ",", "\"\<RHO\>\"", ",", "\"\<rho\>\"", ",", 
-        "\"\<ADORA2A\>\"", ",", "\"\<P2RY12\>\"", ",", "\"\<Unk\>\"", ",", 
-        "\"\<EDG1\>\"", ",", "\"\<FFAR1\>\""}], "}"}], ",", 
-      "\[IndentingNewLine]", "True"}], "]"}]}], ";"}]}]], "Input",
+     "pathToProject", "<>", "\"\<figures/PCiPCj/\>\"", "<>", 
+      "\"\<pc1pc2Weighted.png\>\""}], ",", "pc1pc2plot"}], "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{"pc3pc4plot", "=", 
+   RowBox[{"plotPCiPCjwithHighlitedFams", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"3", ",", "4"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<CHRM2\>\"", ",", "\"\<Chrm3\>\"", ",", "\"\<ADRB1\>\"", ",", 
+       "\"\<ADRB2\>\"", ",", "\"\<DRD3\>\"", ",", "\"\<HRH1\>\"", ",", 
+       "\"\<HTR1B\>\"", ",", "\"\<HTR2B\>\"", ",", "\"\<CCR5\>\"", ",", 
+       "\"\<CXCR4\>\"", ",", "\"\<Ntsr1\>\"", ",", "\"\<OPRD1\>\"", ",", 
+       "\"\<OPRK1\>\"", ",", "\"\<Oprm1\>\"", ",", "\"\<OPRL1\>\"", ",", 
+       "\"\<F2R\>\"", ",", "\"\<RHO\>\"", ",", "\"\<rho\>\"", ",", 
+       "\"\<ADORA2A\>\"", ",", "\"\<P2RY12\>\"", ",", "\"\<Unk\>\"", ",", 
+       "\"\<EDG1\>\"", ",", "\"\<FFAR1\>\""}], " ", "}"}], ",", 
+     "\[IndentingNewLine]", "True"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{
+    "pathToProject", "<>", "\"\<figures/PCiPCj/\>\"", "<>", 
+     "\"\<pc3pc4Weighted.png\>\""}], ",", "pc3pc4plot"}], "]"}], 
+  ";"}]}], "Input",
  CellChangeTimes->{{3.668321169565873*^9, 3.668321194206306*^9}, {
    3.668321455420673*^9, 3.6683214560670156`*^9}, {3.668321562297915*^9, 
    3.668321562468441*^9}, {3.668321954756956*^9, 3.6683219733250427`*^9}, {
@@ -1500,40 +1558,247 @@ Cell[BoxData[
    3.669135533718405*^9}, {3.669135567481586*^9, 3.669135568209937*^9}, {
    3.66913567567795*^9, 3.6691356769250317`*^9}, {3.669135988548074*^9, 
    3.6691360504613934`*^9}, {3.669136385581349*^9, 3.669136400012586*^9}, 
-   3.6691994448308067`*^9, {3.669199968235516*^9, 3.669199983251183*^9}}],
+   3.669199387547336*^9, {3.669199804888762*^9, 3.6691998076393147`*^9}, {
+   3.6692001457453947`*^9, 3.669200187404558*^9}}],
 
-Cell[BoxData[
- RowBox[{"\[IndentingNewLine]", 
-  RowBox[{
-   RowBox[{"Export", "[", 
-    RowBox[{
-     RowBox[{
-     "pathToProject", "<>", "\"\<figures/PCiPCj/\>\"", "<>", 
-      "\"\<pc1pc2Unweighted.png\>\""}], ",", "pc1pc2plot"}], "]"}], 
-   ";"}]}]], "Input",
- CellChangeTimes->{{3.669135632958561*^9, 3.6691356352056723`*^9}, {
-  3.669136039103409*^9, 3.6691360454948597`*^9}, {3.669136451722745*^9, 
-  3.669136485849783*^9}, {3.669141511984716*^9, 3.669141514567563*^9}}],
-
-Cell[BoxData[
- RowBox[{"\[IndentingNewLine]", 
-  RowBox[{
-   RowBox[{"eigenVectorsUnweighted", "=", 
-    RowBox[{"eigenVectors", "[", 
-     RowBox[{"[", 
-      RowBox[{"1", ";;", "numOfFiles"}], "]"}], "]"}]}], ";"}]}]], "Input",
- CellChangeTimes->{{3.6691412913788757`*^9, 3.669141300755319*^9}, {
-  3.669141331902313*^9, 3.669141356377048*^9}}],
-
-Cell[BoxData[
- RowBox[{"\[IndentingNewLine]", 
-  RowBox[{
-   RowBox[{"Save", "[", 
-    RowBox[{
-     RowBox[{"pathToDump", "<>", "\"\<eigenVectorsUnweighted.m\>\""}], ",", 
-     "eigenVectorsUnweighted"}], "]"}], ";"}]}]], "Input",
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"eigenVectorsWeighted", "=", 
+   RowBox[{"eigenVectors", "[", 
+    RowBox[{"[", 
+     RowBox[{"1", ";;", "numOfFiles"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Save", "[", 
+   RowBox[{
+    RowBox[{"pathToDump", "<>", "\"\<eigenVectorsWeighted.m\>\""}], ",", 
+    "eigenVectorsWeighted"}], "]"}], ";"}]}], "Input",
  CellChangeTimes->{{3.669141366324171*^9, 3.669141373174395*^9}, {
-  3.6691414345507*^9, 3.669141465591517*^9}}]
+   3.6691414345507*^9, 3.669141465591517*^9}, {3.669198712948166*^9, 
+   3.669198713570745*^9}, 3.66919953374022*^9, {3.669200159467609*^9, 
+   3.669200200233666*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"savePdb", "[", 
+     RowBox[{"triplets_", ",", "name_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"template", ",", "savedCoordinates"}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"template", "=", 
+        RowBox[{"Import", "[", 
+         RowBox[{
+          RowBox[{
+          "pathToProject", "<>", "\"\<pdbs/glycine/\>\"", "<>", 
+           "\"\<2RH1_Aordered.pdb\>\""}], ",", 
+          RowBox[{"{", 
+           RowBox[{"\"\<PDB\>\"", ",", "\"\<Rules\>\""}], "}"}]}], "]"}]}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"savedCoordinates", "=", 
+        RowBox[{"Partition", "[", 
+         RowBox[{"triplets", ",", "4"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       
+       RowBox[{
+        RowBox[{
+         RowBox[{"template", "[", 
+          RowBox[{"[", "16", "]"}], "]"}], "[", 
+         RowBox[{"[", "2", "]"}], "]"}], "=", 
+        RowBox[{"{", 
+         RowBox[{"savedCoordinates", "*", "100"}], "}"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Export", "[", 
+        RowBox[{
+         RowBox[{
+         "pathToProject", "<>", "\"\<pdbs/\>\"", "<>", "name", "<>", 
+          "\"\<.pdb\>\""}], ",", "template"}], "]"}], ";"}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}]}]], "Input",
+ CellChangeTimes->{
+  3.669200201684761*^9, {3.669200252199304*^9, 3.669200482422751*^9}, {
+   3.669200513409974*^9, 3.669200514710431*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"savePdb", "[", 
+    RowBox[{"mean", ",", "\"\<weightedAverage\>\""}], "]"}], ";"}]}]], "Input",\
+
+ CellChangeTimes->{{3.669200484813229*^9, 3.6692004970222816`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"exportExtreme", "[", 
+      RowBox[{
+      "pcNumber_", ",", "frames_", ",", "isSinus_", ",", "pathToSave_"}], 
+      "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "flatMean", ",", "extremes", ",", "min", ",", "max", ",", "step", ",",
+          "pdbToWrite", ",", "template", ",", "bigPdb"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"extremes", "=", 
+         RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"max", "=", 
+         RowBox[{"Max", "[", 
+          RowBox[{"pcaProjections", "[", 
+           RowBox[{"[", "pcNumber", "]"}], "]"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"min", "=", 
+         RowBox[{"Min", "[", 
+          RowBox[{"pcaProjections", "[", 
+           RowBox[{"[", "pcNumber", "]"}], "]"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"step", "=", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"max", "-", "min"}], ")"}], "/", "frames"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"flatMean", "=", 
+         RowBox[{"Flatten", "@", "mean"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"extremes", ",", 
+             RowBox[{"flatMean", "+", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"min", "+", 
+                 RowBox[{"i", "*", "step"}]}], ")"}], "*", 
+               RowBox[{"eigenVectors", "[", 
+                RowBox[{"[", "pcNumber", "]"}], "]"}]}]}]}], "]"}], ";"}], 
+          ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "0", ",", "frames"}], "}"}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"template", "=", 
+            RowBox[{"Import", "[", 
+             RowBox[{
+              RowBox[{"pathToSave", "<>", "\"\<weightedAverage.pdb\>\""}], 
+              ",", 
+              RowBox[{"{", 
+               RowBox[{"\"\<PDB\>\"", ",", "\"\<Rules\>\""}], "}"}]}], 
+             "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"pdbToWrite", "=", 
+            RowBox[{"extremes", "[", 
+             RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"pdbToWrite", "=", 
+            RowBox[{"Partition", "[", 
+             RowBox[{"pdbToWrite", ",", "3"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"pdbToWrite", "=", 
+            RowBox[{"Partition", "[", 
+             RowBox[{"pdbToWrite", ",", "4"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"template", "[", 
+              RowBox[{"[", "16", "]"}], "]"}], "[", 
+             RowBox[{"[", "2", "]"}], "]"}], "=", 
+            RowBox[{"{", 
+             RowBox[{"pdbToWrite", "*", "100"}], "}"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Export", "[", 
+            RowBox[{
+             RowBox[{"pathToSave", "<>", "\"\<extreme1_\>\"", "<>", 
+              RowBox[{"ToString", "[", "i", "]"}], "<>", "\"\<.pdb\>\""}], 
+             ",", "template"}], "]"}], ";"}], "\[IndentingNewLine]", ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "1", ",", 
+            RowBox[{"frames", "+", "1"}]}], "}"}]}], "\[IndentingNewLine]", 
+         "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"bigPdb", "=", 
+         RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"template", "=", 
+            RowBox[{"Import", "[", 
+             RowBox[{
+              RowBox[{"pathToSave", "<>", "\"\<extreme1_\>\"", "<>", 
+               RowBox[{"ToString", "[", "i", "]"}], "<>", "\"\<.pdb\>\""}], 
+              ",", "\"\<list\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"template", "=", 
+            RowBox[{"Drop", "[", 
+             RowBox[{"template", ",", "24"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"template", "=", 
+            RowBox[{"Drop", "[", 
+             RowBox[{"template", ",", 
+              RowBox[{"-", "3"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"bigPdb", ",", 
+             RowBox[{"\"\<TITLE     frame t= \>\"", "<>", 
+              RowBox[{"ToString", "[", 
+               RowBox[{"i", "-", "1"}], "]"}], "<>", "\"\<.000\>\""}]}], 
+            "]"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"bigPdb", ",", "\"\<MODEL        1\>\""}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"bigPdb", ",", "template"}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"bigPdb", ",", "\"\<TER\\nENDMDL\>\""}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"DeleteFile", "[", 
+            RowBox[{"pathToSave", "<>", "\"\<extreme1_\>\"", "<>", 
+             RowBox[{"ToString", "[", "i", "]"}], "<>", "\"\<.pdb\>\""}], 
+            "]"}], ";"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "1", ",", 
+            RowBox[{"frames", "+", "1"}]}], "}"}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Export", "[", 
+         RowBox[{
+          RowBox[{"pathToSave", "<>", "\"\<extreme\>\"", "<>", 
+           RowBox[{"ToString", "[", "pcNumber", "]"}], "<>", "\"\<.txt\>\""}],
+           ",", 
+          RowBox[{"Flatten", "@", "bigPdb"}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"RenameFile", "[", 
+         RowBox[{
+          RowBox[{"pathToSave", "<>", "\"\<extreme\>\"", "<>", 
+           RowBox[{"ToString", "[", "pcNumber", "]"}], "<>", "\"\<.txt\>\""}],
+           ",", 
+          RowBox[{"pathToSave", "<>", "\"\<extreme\>\"", "<>", 
+           RowBox[{"ToString", "[", "pcNumber", "]"}], "<>", 
+           "\"\<.pdb\>\""}]}], "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"Return", "[", "True", "]"}], ";"}]}], "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"frames", "=", "20"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pathToExportExtremes", "=", 
+     RowBox[{"pathToProject", "<>", "\"\<pdbs/extremes/\>\""}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Do", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"exportExtreme", "[", 
+        RowBox[{
+        "m", ",", "frames", ",", "False", ",", "pathToExportExtremes"}], 
+        "]"}], ";"}], "\[IndentingNewLine]", ",", 
+      RowBox[{"{", 
+       RowBox[{"m", ",", "1", ",", "5"}], "}"}]}], "\[IndentingNewLine]", 
+     "]"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.669200639858013*^9, 3.6692010088897333`*^9}, 
+   3.669201162434122*^9, {3.669201207306472*^9, 3.669201213144926*^9}, {
+   3.669201245296072*^9, 3.669201373240437*^9}}]
 },
 WindowSize->{1867, 1056},
 WindowMargins->{{Automatic, 0}, {Automatic, 0}},
@@ -1554,18 +1819,19 @@ Notebook[{
 Cell[558, 20, 645, 18, 99, "Input"],
 Cell[1206, 40, 2164, 61, 121, "Input"],
 Cell[3373, 103, 7520, 193, 583, "Input"],
-Cell[10896, 298, 1848, 52, 231, "Input"],
+Cell[10896, 298, 1778, 48, 231, "Input"],
 Cell[CellGroupData[{
-Cell[12769, 354, 853, 22, 55, "Input"],
-Cell[13625, 378, 4421, 110, 214, "Output"]
+Cell[12699, 350, 915, 23, 55, "Input"],
+Cell[13617, 375, 4689, 118, 214, "Output"]
 }, Open  ]],
-Cell[18061, 491, 1033, 31, 143, "Input"],
-Cell[19097, 524, 10352, 291, 479, "Input"],
-Cell[29452, 817, 27504, 655, 1605, "Input"],
-Cell[56959, 1474, 1653, 28, 121, "Input"],
-Cell[58615, 1504, 478, 11, 112, "Input"],
-Cell[59096, 1517, 346, 8, 55, "Input"],
-Cell[59445, 1527, 344, 8, 55, "Input"]
+Cell[18321, 496, 1790, 52, 209, "Input"],
+Cell[20114, 550, 10397, 292, 479, "Input"],
+Cell[30514, 844, 27524, 655, 1605, "Input"],
+Cell[58041, 1501, 2960, 60, 253, "Input"],
+Cell[61004, 1563, 615, 15, 55, "Input"],
+Cell[61622, 1580, 1523, 41, 165, "Input"],
+Cell[63148, 1623, 235, 6, 55, "Input"],
+Cell[63386, 1631, 7156, 169, 836, "Input"]
 }
 ]
 *)
