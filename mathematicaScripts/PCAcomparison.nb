@@ -1,0 +1,209 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      7322,        200]
+NotebookOptionsPosition[      6969,        184]
+NotebookOutlinePosition[      7303,        199]
+CellTagsIndexPosition[      7260,        196]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+    "pathToProject", "=", 
+     "\"\</media/my_extra_space/projects/1510GPCR/\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pathToDump", "=", 
+     RowBox[{"pathToProject", "<>", "\"\<dumps/\>\""}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Get", "[", 
+     RowBox[{"pathToDump", "<>", "\"\<eigenVectorsUnweighted.m\>\""}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Get", "[", 
+     RowBox[{"pathToDump", "<>", "\"\<eigenVectorsWeighted.m\>\""}], "]"}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.666846245986026*^9, 3.66684624621064*^9}, 
+   3.666891845225951*^9, 3.667064036328476*^9, {3.66920240632012*^9, 
+   3.669202469657908*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"matrixToPlot", "=", 
+     RowBox[{"ConstantArray", "[", 
+      RowBox[{"0", ",", 
+       RowBox[{"{", 
+        RowBox[{"10", ",", "10"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Do", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"matrixToPlot", "[", 
+             RowBox[{"[", "i", "]"}], "]"}], "[", 
+            RowBox[{"[", "j", "]"}], "]"}], "=", 
+           RowBox[{"Abs", "[", 
+            RowBox[{
+             RowBox[{"eigenVectorsUnweighted", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ".", 
+             RowBox[{"eigenVectorsWeighted", "[", 
+              RowBox[{"[", "j", "]"}], "]"}]}], "]"}]}], ";"}], 
+         "\[IndentingNewLine]", ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", "10"}], "}"}]}], "\[IndentingNewLine]", 
+        "]"}], ";"}], "\[IndentingNewLine]", ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", "10"}], "}"}]}], "\[IndentingNewLine]", 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"arrayPlot10", "=", 
+     RowBox[{"ArrayPlot", "[", 
+      RowBox[{"matrixToPlot", ",", 
+       RowBox[{"FrameTicks", "\[Rule]", "True"}], ",", " ", 
+       RowBox[{
+       "PlotLabel", "\[Rule]", "\"\<Comparison of PCA eigenvectors\>\""}], 
+       ",", " ", 
+       RowBox[{"FrameLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<unweighted version\>\"", ",", "\"\<weighted version\>\""}], 
+         "}"}]}], ",", " ", 
+       RowBox[{"ImageSize", "\[Rule]", "600"}]}], "]"}]}], ";"}]}]}]], "Input",\
+
+ CellChangeTimes->{{3.667119000777074*^9, 3.6671190272273703`*^9}, {
+  3.667119072869544*^9, 3.66711909789049*^9}, {3.667119153104027*^9, 
+  3.667119173361217*^9}, {3.667119211488469*^9, 3.667119443309307*^9}, {
+  3.667119559921008*^9, 3.66711957640165*^9}, {3.66711961511976*^9, 
+  3.6671196437439413`*^9}, {3.6671198093249474`*^9, 3.667119919443801*^9}, {
+  3.667119964476839*^9, 3.667120010416916*^9}, {3.6671338536132183`*^9, 
+  3.667133859610342*^9}, {3.667487603417275*^9, 3.667487606423829*^9}, {
+  3.667557104964024*^9, 3.667557109772256*^9}, {3.669202499157588*^9, 
+  3.669202525356769*^9}, {3.669202833984427*^9, 3.669202867880391*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"matrixToPlot", "=", 
+     RowBox[{"ConstantArray", "[", 
+      RowBox[{"0", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Length", "[", "eigenVectorsUnweighted", "]"}], ",", 
+         RowBox[{"Length", "[", "eigenVectorsWeighted", "]"}]}], "}"}]}], 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Do", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"matrixToPlot", "[", 
+             RowBox[{"[", "i", "]"}], "]"}], "[", 
+            RowBox[{"[", "j", "]"}], "]"}], "=", 
+           RowBox[{"Abs", "[", 
+            RowBox[{
+             RowBox[{"eigenVectorsUnweighted", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ".", 
+             RowBox[{"eigenVectorsWeighted", "[", 
+              RowBox[{"[", "j", "]"}], "]"}]}], "]"}]}], ";"}], 
+         "\[IndentingNewLine]", ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", 
+           RowBox[{"Length", "[", "eigenVectorsWeighted", "]"}]}], "}"}]}], 
+        "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", 
+        RowBox[{"Length", "[", "eigenVectorsUnweighted", "]"}]}], "}"}]}], 
+     "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"arrayPlotFull", "=", 
+     RowBox[{"ArrayPlot", "[", 
+      RowBox[{"matrixToPlot", ",", 
+       RowBox[{"FrameTicks", "\[Rule]", "True"}], ",", " ", 
+       RowBox[{
+       "PlotLabel", "\[Rule]", "\"\<Comparison of PCA eigenvectors\>\""}], 
+       ",", " ", 
+       RowBox[{"FrameLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<unweighted version\>\"", ",", "\"\<weighted version\>\""}], 
+         "}"}]}], ",", " ", 
+       RowBox[{"ImageSize", "\[Rule]", "600"}]}], "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.667134217313095*^9, 3.667134224184744*^9}, {
+   3.667134269496901*^9, 3.6671342936379766`*^9}, {3.667134327686307*^9, 
+   3.667134345463835*^9}, {3.667236616235869*^9, 3.667236671403162*^9}, {
+   3.667487613621704*^9, 3.667487617592573*^9}, {3.667557093540799*^9, 
+   3.667557099165807*^9}, {3.66920253846845*^9, 3.6692025496000443`*^9}, {
+   3.669202591472674*^9, 3.669202737215135*^9}, 3.669202774226891*^9}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Export", "[", 
+     RowBox[{
+      RowBox[{
+      "pathToProject", "<>", "\"\<figures/PCAapproachComparison/\>\"", "<>", 
+       "\"\<eigenVectorsComparisonShort.png\>\""}], ",", "arrayPlot10"}], 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Export", "[", 
+     RowBox[{
+      RowBox[{
+      "pathToProject", "<>", "\"\<figures/PCAapproachComparison/\>\"", "<>", 
+       "\"\<eigenVectorsComparisonFull.png\>\""}], ",", "arrayPlotFull"}], 
+     "]"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.667487633037237*^9, 3.667487706753602*^9}, {
+  3.667488028648506*^9, 3.667488029337422*^9}, {3.669202806086548*^9, 
+  3.669202809780755*^9}}]
+},
+WindowSize->{1227, 1000},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 771, 21, 121, "Input"],
+Cell[1331, 43, 2430, 58, 253, "Input"],
+Cell[3764, 103, 2456, 58, 253, "Input"],
+Cell[6223, 163, 742, 19, 134, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
